@@ -1,13 +1,26 @@
 .Search {
     width: 100%;
+    color: #9aa0a6;
+    height: 20rem;
+
 }
 
 .Search-input-wrapper {
     width: 80%;
+    max-width: 650px;
     border: 1px solid #5f6368;
+    border-radius: 2rem;
     margin: 0 auto;
     height: 2.7rem;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    display: flex;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.Search-input-wrapper:hover {
+    background: #323233;
+    border-color: #323233;
 }
 
 .Search-input {
@@ -18,13 +31,73 @@
     color: #fff;
     background: transparent;
     outline: none;
+    padding-left: 1rem;
 }
 
-.Search-pre-input {
-    width: 3rem;
-    background: red;
-}
-
+.Search-pre-input,
 .Search-post-input {
-    background: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Search-input-icon {
+    height: 100%;
+}
+
+.Search-input-clear-text {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 100;
+    padding-right: .8rem;
+    margin-right: .5rem;
+    border-right: 1px solid;
+}
+
+.Search-input-icon-wrapper {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.Search-push-to-talk {
+    cursor: pointer;
+}
+
+.Search-push-to-talk:hover > .Search-push-to-talk-helper {
+    display: block;
+}
+
+.Search-push-to-talk .Search-push-to-talk-helper {
+    position: absolute;
+    background: #323233;
+    border: 1px solid white;
+    padding: .3rem .6rem;
+    font-size: 0.7rem;
+    color: white;
+    top: 2.9rem;
+    right: -14px;
+    display: none;
+}
+
+.Search-push-to-talk .Search-push-to-talk-helper:before {
+    content: '';
+    position: absolute;
+    border: 1px solid white;
+    border-color: white transparent;
+    border-width: 0px 5px 5px 5px;
+    top: -6px;
+    left: 48%;
+}
+
+.Search-push-to-talk .Search-push-to-talk-helper:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #323233;
+    border-color: #323233 transparent;
+    border-width: 0px 5px 5px 5px;
+    top: -5px;
+    left: 48%;
 }

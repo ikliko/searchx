@@ -102,6 +102,7 @@
     top: 2.9rem;
     right: -14px;
     display: none;
+    z-index: 1;
 }
 
 .Search-push-to-talk .Search-push-to-talk-helper:before {
@@ -122,4 +123,17 @@
     border-width: 0px 5px 5px 5px;
     top: -5px;
     left: 48%;
+}
+
+.Search-search-button,
+.Search-lucky-button {
+    background-color: #303134;
+    border: 1px solid #303134;
+    font-size: 1rem;
+    margin: .25rem 1rem;
+    padding: 0 1rem;
+    line-height: 2rem;
+    height: 2rem;
+    min-width: 4rem;
+    color: #e8eaed;
 }

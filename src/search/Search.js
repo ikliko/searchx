@@ -3,11 +3,13 @@ import micIcon from '../assets/microphone.svg';
 import React, {useEffect, useRef, useState} from "react";
 import SearchAutocomplete from "../search-autocomplete/SearchAutocomplete";
 import './Search.css';
+import _ from "lodash"
 
 function Search() {
     const [query, setQuery] = useState('');
     const [autocompleteResults, setAutocompleteResults] = useState('');
     const [showAutocomplete, setShowAutocomplete] = useState('');
+    const [showLoading, setShowLoading] = useState('');
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
 
@@ -40,37 +42,42 @@ function Search() {
     };
 
     useEffect(() => {
-        if (!query) {
-            setAutocompleteResults(null);
-            setShowAutocomplete(false);
+        _.debounce(() => {
+            if (!query) {
+                setAutocompleteResults(null);
+                setShowAutocomplete(false);
 
-            return;
-        }
-
-        fetch(
-            `http://localhost:8000/api/autocomplete/${query}`,
-            {
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                return;
             }
-        )
-            .then(res => res.json())
-            .then(data => {
-                if (!data) {
-                    return;
+            setShowLoading(true);
+            fetch(
+                `http://localhost:8000/api/autocomplete/${query}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
                 }
+            )
+                .then(res => res.json())
+                .then(data => {
+                    if (!data) {
+                        return;
+                    }
 
-                if (!data.length) {
-                    setAutocompleteResults([]);
-                    setShowAutocomplete(false);
+                    if (!data.length) {
+                        setAutocompleteResults([]);
+                        setShowAutocomplete(false);
 
-                    return;
-                }
+                        return;
+                    }
 
-                setAutocompleteResults(data);
-                setShowAutocomplete(true);
-            });
+                    setAutocompleteResults(data);
+                    setShowAutocomplete(true);
+                    setShowLoading(false);
+                });
+        }, 500)();
+
+
 
         return () => {
 
@@ -85,6 +92,7 @@ function Search() {
                      + (showAutocomplete || autocompleteResults?.length ? ' active' : '')
                      + (showAutocomplete && autocompleteResults?.length ? ' show-autocomplete' : '')
                  }>
+
                 <div className="Search-pre-input">
                     <div className="Search-input-icon-wrapper">
                         <img src={searchIcon}
@@ -92,10 +100,10 @@ function Search() {
                              alt="search-icon"/>
                     </div>
                 </div>
+
                 <input type="text"
                        value={query}
                        onFocus={activeInput}
-                       onBlur={inactiveInput}
                        onChange={onInputChange}
                        className="Search-input"/>
 
@@ -117,14 +125,27 @@ function Search() {
                 </div>
 
                 {
-                    autocompleteResults?.length
+                    !showLoading && autocompleteResults?.length
                         ?
                         <div className="Search-autocmplete-wrapper">
                             <SearchAutocomplete autocompleteResults={autocompleteResults}></SearchAutocomplete>
                         </div>
                         : ''
                 }
+
+                {
+                    showLoading
+                        ?
+                        <div className="Search-autocmplete-wrapper">
+                            Loading...
+                        </div>
+                        : ''
+                }
             </div>
+
+            <button type="button" className="Search-search-button">SrchX Search</button>
+
+            <button type="button" className="Search-lucky-button">I'm Feeling Lucky</button>
         </div>
     );
 }
@@ -133,8 +154,13 @@ function Search() {
  * Hook detects outside click
  */
 function useOutsideAlerter(ref) {
+    const [autocompleteResults, setAutocompleteResults] = useState('');
+
     useEffect(() => {
+
         function handleClickOutside(event) {
+            console.log(ref.current, event.target, ref.current.contains(event.target));
+
             if (ref.current && !ref.current.contains(event.target)) {
                 ref.current.classList.remove('show-autocomplete');
                 ref.current.classList.remove('active');
@@ -142,7 +168,10 @@ function useOutsideAlerter(ref) {
                 return;
             }
 
-            ref.current.classList.remove('active');
+            ref.current.classList.add('active');
+            if(autocompleteResults?.length) {
+                ref.current.classList.add('show-autocomplete');
+            }
         }
 
         // Bind the event listener

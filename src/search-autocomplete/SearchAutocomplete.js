@@ -7,7 +7,7 @@ function SearchAutocomplete(autocomplete) {
         return <div/>;
     }
 
-    const url = query => `https://www.google.com/search?q=${query}`;
+    const url = query => `http://localhost:3000/search/${query}`;
 
     return (
         <div className="SearchAutocomplete">

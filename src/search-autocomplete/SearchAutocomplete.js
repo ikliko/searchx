@@ -4,7 +4,7 @@ import './SearchAutocomplete.css';
 
 function SearchAutocomplete(autocomplete) {
     if (!autocomplete?.autocompleteResults?.length) {
-        return;
+        return <div/>;
     }
 
     const url = query => `https://www.google.com/search?q=${query}`;

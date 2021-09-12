@@ -57,13 +57,24 @@ function Search() {
         )
             .then(res => res.json())
             .then(data => {
-                if (!data || !data.length) {
+                if (!data) {
+                    return;
+                }
+
+                if (!data.length) {
+                    setAutocompleteResults([]);
+                    setShowAutocomplete(false);
+
                     return;
                 }
 
                 setAutocompleteResults(data);
                 setShowAutocomplete(true);
-            })
+            });
+
+        return () => {
+
+        }
     }, [query]);
 
     return (
@@ -106,7 +117,7 @@ function Search() {
                 </div>
 
                 {
-                    autocompleteResults
+                    autocompleteResults?.length
                         ?
                         <div className="Search-autocmplete-wrapper">
                             <SearchAutocomplete autocompleteResults={autocompleteResults}></SearchAutocomplete>

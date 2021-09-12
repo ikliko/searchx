@@ -2,7 +2,18 @@
     width: 100%;
     color: #9aa0a6;
     height: 20rem;
+}
 
+.Search-autocmplete-wrapper {
+    display: none;
+    position: absolute;
+    background: #323233;
+    width: 100%;
+    left: 0;
+    margin-top: 44px;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    overflow: hidden;
 }
 
 .Search-input-wrapper {
@@ -18,9 +29,19 @@
     position: relative;
 }
 
+.Search-input-wrapper.active,
 .Search-input-wrapper:hover {
     background: #323233;
     border-color: #323233;
+}
+
+.Search-input-wrapper.active.show-autocomplete {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
+}
+
+.Search-input-wrapper.show-autocomplete .Search-autocmplete-wrapper {
+    display: block;
 }
 
 .Search-input {
@@ -53,6 +74,7 @@
     padding-right: .8rem;
     margin-right: .5rem;
     border-right: 1px solid;
+    cursor: pointer;
 }
 
 .Search-input-icon-wrapper {

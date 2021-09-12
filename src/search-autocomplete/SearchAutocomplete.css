@@ -1,0 +1,33 @@
+.SearchAutocomplete {
+    background: #323233;
+}
+
+.SearchAutocomplete-results {
+    width: 90%;
+    border-top: 1px solid #5f6368;
+    margin: 0 auto;
+}
+
+.SearchAutocomplete-item {
+    padding: .3rem 0;
+    font-size: 1rem;
+}
+
+.SearchAutocomplete-item,
+.SearchAutocomplete-item-link {
+    display: flex;
+    align-items: flex-end;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.SearchAutocomplete-item-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SearchAutocomplete-item-icon {
+    width: 1rem;
+    margin-right: 1rem;
+}

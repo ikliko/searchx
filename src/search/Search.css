@@ -1,0 +1,30 @@
+.Search {
+    width: 100%;
+}
+
+.Search-input-wrapper {
+    width: 80%;
+    border: 1px solid #5f6368;
+    margin: 0 auto;
+    height: 2.7rem;
+    overflow: hidden;
+}
+
+.Search-input {
+    display: flex;
+    width: 90%;
+    height: 100%;
+    border: 0;
+    color: #fff;
+    background: transparent;
+    outline: none;
+}
+
+.Search-pre-input {
+    width: 3rem;
+    background: red;
+}
+
+.Search-post-input {
+    background: red;
+}

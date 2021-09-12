@@ -1,55 +1,45 @@
 import logo from './logo.svg';
 import './App.css';
 import Search from "./search/Search";
-
-
-/////////////
-
-
 import React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import SearchResults from "./search-results/SearchResults";
 
 export default function App() {
     return (
-        <Router>
-            <div>
-                <Switch>
-                    <Route path="/search/:query">
-                        <SearchResultsPage />
-                    </Route>
+        <div className="App">
+            <Router>
+                <div>
+                    <Switch>
+                        <Route path="/search/:queryParam">
+                            <SearchResultsPage/>
+                        </Route>
 
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </Switch>
-            </div>
-        </Router>
+                        <Route path="/">
+                            <Home/>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </div>
     );
 }
 
 function Home() {
     return <>
-        <div className="App">
-            <header className="App-header">
-                <img src={logo}
-                     className="App-logo"
-                     alt="logo" />
+        <header className="App-header">
+            <img src={logo}
+                 className="App-logo"
+                 alt="logo"/>
 
-                <Search />
-            </header>
-        </div>
+            <Search/>
+        </header>
     </>;
 }
 
 function SearchResultsPage() {
-    let { query } = useParams();
-    console.log(query);
-    return <h2>About</h2>;
+
+    return <>
+        <SearchResults></SearchResults>
+    </>;
 }

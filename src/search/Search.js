@@ -4,14 +4,28 @@ import React, {useEffect, useRef, useState} from "react";
 import SearchAutocomplete from "../search-autocomplete/SearchAutocomplete";
 import './Search.css';
 import _ from "lodash"
+import {useParams} from "react-router-dom";
+import {BrowserRouter as Router,  Route, Switch} from "react-router-dom";
 
-function Search() {
+
+function Search(oneRow = false) {
     const [query, setQuery] = useState('');
     const [autocompleteResults, setAutocompleteResults] = useState('');
     const [showAutocomplete, setShowAutocomplete] = useState('');
     const [showLoading, setShowLoading] = useState('');
+    const [isInputActive, setIsInputActive] = useState('');
     const wrapperRef = useRef(null);
+
     useOutsideAlerter(wrapperRef);
+
+    let {queryParam} = useParams();
+
+    useEffect(() => {
+        if (queryParam) {
+            setQuery(queryParam);
+        }
+    }, [queryParam]);
+
 
     const onInputChange = event => {
         const query = event.target.value;
@@ -21,6 +35,8 @@ function Search() {
     const clearInput = () => setQuery('');
 
     const activeInput = () => {
+        setIsInputActive(true);
+
         if (!wrapperRef.current) {
             return;
         }
@@ -33,12 +49,13 @@ function Search() {
     };
 
     const inactiveInput = () => {
-        if (!wrapperRef.current) {
-            return;
-        }
+        setIsInputActive(false);
+    };
 
-        wrapperRef.current.classList.remove('active');
-        wrapperRef.current.classList.remove('show-autocomplete');
+    const handleKeyDown = e => {
+        if (e.key === 'Enter') {
+            window.location.href= `/search/${query}`;
+        }
     };
 
     useEffect(() => {
@@ -77,8 +94,6 @@ function Search() {
                 });
         }, 500)();
 
-
-
         return () => {
 
         }
@@ -89,7 +104,7 @@ function Search() {
             <div ref={wrapperRef}
                  className={
                      'Search-input-wrapper Search-push-to-talk-helper-relative'
-                     + (showAutocomplete || autocompleteResults?.length ? ' active' : '')
+                     + (queryParam || showAutocomplete || autocompleteResults?.length ? ' active' : '')
                      + (showAutocomplete && autocompleteResults?.length ? ' show-autocomplete' : '')
                  }>
 
@@ -104,7 +119,9 @@ function Search() {
                 <input type="text"
                        value={query}
                        onFocus={activeInput}
+                       onBlur={inactiveInput}
                        onChange={onInputChange}
+                       onKeyDown={handleKeyDown}
                        className="Search-input"/>
 
                 <div className="Search-post-input">
@@ -143,9 +160,14 @@ function Search() {
                 }
             </div>
 
-            <button type="button" className="Search-search-button">SrchX Search</button>
-
-            <button type="button" className="Search-lucky-button">I'm Feeling Lucky</button>
+            {
+                !oneRow ?
+                    <>
+                        <button type="button" className="Search-search-button">SrchX Search</button>
+                        <button type="button" className="Search-lucky-button">I'm Feeling Lucky</button>
+                    </>
+                    : ''
+            }
         </div>
     );
 }
@@ -159,8 +181,6 @@ function useOutsideAlerter(ref) {
     useEffect(() => {
 
         function handleClickOutside(event) {
-            console.log(ref.current, event.target, ref.current.contains(event.target));
-
             if (ref.current && !ref.current.contains(event.target)) {
                 ref.current.classList.remove('show-autocomplete');
                 ref.current.classList.remove('active');
@@ -169,7 +189,7 @@ function useOutsideAlerter(ref) {
             }
 
             ref.current.classList.add('active');
-            if(autocompleteResults?.length) {
+            if (autocompleteResults?.length) {
                 ref.current.classList.add('show-autocomplete');
             }
         }

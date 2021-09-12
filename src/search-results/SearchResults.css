@@ -1,0 +1,47 @@
+.SearchResults {
+    padding-top: 1rem;
+}
+
+.SearchResults-search-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.SearchResults-logo {
+    width: 9rem;
+    margin: 1rem;
+}
+
+.SearchResults .Search {
+    width: auto;
+}
+
+.SearchResults-results-item {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 38rem;
+    text-align: left;
+    margin-left: 12rem;
+    margin-bottom: 2rem;
+}
+
+.SearchResults-results-item-title {
+    font-size: 20px;
+    margin: .25rem 0;
+    padding: 0;
+}
+
+.SearchResults-results-item-title a {
+    color: #8ab4f8;
+    text-decoration: none;
+}
+.SearchResults-results-item-title:hover a {
+    text-decoration: underline;
+}
+
+.SearchResults-results-item-url {
+    color: #bdc1c6;
+    font-size: .8rem;
+}

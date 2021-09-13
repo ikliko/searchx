@@ -78,7 +78,7 @@ function Search(oneRow = false) {
             }
             setShowLoading(true);
             fetch(
-                `http://localhost:8000/api/autocomplete/${query}`,
+                `https://api.searchx.waboratory.com/api/autocomplete/${query}`,
                 {
                     headers: {
                         "Content-Type": "application/json"

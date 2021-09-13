@@ -12,6 +12,10 @@ function SearchResultsAdditionalInfo(additionalInfo) {
 
     console.log(info);
 
+    const getWikiLink = () => {
+        return `https://en.wikipedia.org/wiki/${info.title}_${info.short_description}`;
+    };
+
     return (
         <div className="SearchResultsAdditionalInfo">
             <div className="SearchResultsAdditionalInfo-images-list">
@@ -55,6 +59,9 @@ function SearchResultsAdditionalInfo(additionalInfo) {
                 </div>
             </div>
 
+            <div className="SearchResultsAdditionalInfo-wiki">
+                {info.description} <a href={getWikiLink()}>Wikipedia</a>
+            </div>
         </div>
     );
 }

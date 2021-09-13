@@ -114,7 +114,7 @@ function SearchResults() {
 
     useEffect(() => {
         fetch(
-            `http://localhost:8000/api/search/${queryParam}`,
+            `https://api.searchx.waboratory.com/api/search/${queryParam}`,
             {
                 headers: {
                     "Content-Type": "application/json"

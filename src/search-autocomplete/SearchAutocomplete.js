@@ -13,7 +13,9 @@ function SearchAutocomplete(autocomplete) {
         <div className="SearchAutocomplete">
             <div className="SearchAutocomplete-results">
                 {
-                    autocomplete.autocompleteResults.map((r, k) =>
+                    autocomplete
+                        .autocompleteResults
+                        .map((r, k) =>
                         (<div key={k}
                               className="SearchAutocomplete-item">
                             <a href={url(r)}
@@ -21,7 +23,7 @@ function SearchAutocomplete(autocomplete) {
                                 <img src={searchIcon}
                                      className="SearchAutocomplete-item-icon"
                                      alt="search-icon"/>
-                                <span className="SearchAutocomplete-item-text">{r}</span>
+                                <span className="SearchAutocomplete-item-text">{r.q}{r.add[0] === ' ' ? <span>&nbsp;</span> : ''}<b>{r.add}</b></span>
                                 </a>
                         </div>))
                 }

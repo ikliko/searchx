@@ -98,7 +98,11 @@ function Search(oneRow = false) {
                         return;
                     }
 
-                    setAutocompleteResults(data);
+                    setAutocompleteResults(data.map(r => ({
+                        full: r,
+                        q: query,
+                        add: r.replace(query, '')
+                    })));
                     setShowAutocomplete(true);
                     setShowLoading(false);
                 });

@@ -31,3 +31,7 @@
     width: 1rem;
     margin-right: 1rem;
 }
+
+.SearchAutocomplete-item-link.is-visited {
+    color: #9004fc;
+}

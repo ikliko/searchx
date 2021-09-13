@@ -38,6 +38,10 @@
     padding: 0;
 }
 
+.SearchResults-results-item-title.is-visited a {
+    color: #9004fc;
+}
+
 .SearchResults-results-item-title a {
     color: #8ab4f8;
     text-decoration: none;
@@ -49,4 +53,16 @@
 .SearchResults-results-item-url {
     color: #bdc1c6;
     font-size: .8rem;
+}
+
+.SearchResults-results-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+    width: 100%;
+    max-width: 76rem;
+}
+
+.SearchResults-see-also {
+    border: 1px solid #5f6368;
 }

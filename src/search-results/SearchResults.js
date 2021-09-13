@@ -3,11 +3,12 @@ import {useParams} from "react-router-dom";
 import Search from "../search/Search";
 import './SearchResults.css'
 import logo from '../logo.svg';
+import SearchResultsAdditionalInfo from "../search-results-additional-info/SearchResultsAdditionalInfo";
 
 function showSnippet(item) {
     const snippet = item.snippet;
 
-    if(snippet.length > 150) {
+    if (snippet.length > 150) {
         return `${snippet.slice(0, 147)}...`
     }
 
@@ -17,7 +18,7 @@ function showSnippet(item) {
 function showTitle(item) {
     const title = item.title;
 
-    if(title.length > 63) {
+    if (title.length > 63) {
         return `${title.slice(0, 60)}...`
     }
 
@@ -27,16 +28,50 @@ function showTitle(item) {
 function showLink(item) {
     const link = item.url;
 
-    if(link.length > 50) {
+    if (link.length > 50) {
         return `${link.slice(0, 47)}...`
     }
 
     return link;
 }
 
+function savePageToStorage() {
+    const query = window.location.pathname.split('/').pop();
+
+    let autocompletes = localStorage.getItem('autocompletes');
+
+    if (!autocompletes) {
+        localStorage.setItem('autocompletes', JSON.stringify([query]));
+
+        return;
+    }
+
+    autocompletes = JSON.parse(autocompletes);
+
+    if(autocompletes.find(r => r === query)) {
+        return;
+    }
+
+    autocompletes.push(query);
+    localStorage.setItem('autocompletes', JSON.stringify(autocompletes));
+}
+
+function getOpenedAutocompletes() {
+    let autocompletes = localStorage.getItem('autocompletes');
+
+    if(!autocompletes) {
+        return [];
+    }
+
+    return JSON.parse(autocompletes).map(r => decodeURI(r));
+}
+
 function SearchResults() {
     const [results, setResults] = useState('');
     let {queryParam} = useParams();
+    const autocompletesOpened = getOpenedAutocompletes();
+
+    savePageToStorage();
 
     useEffect(() => {
         fetch(
@@ -61,8 +96,10 @@ function SearchResults() {
     }, [queryParam]);
 
     const handleLogoClick = e => {
-        window.location.href= `/`;
+        window.location.href = `/`;
     };
+
+    // console.log(queryParam,autocompletesOpened.include(queryParam));
 
     return (
         <div className="SearchResults">
@@ -88,7 +125,7 @@ function SearchResults() {
                                     {showLink(item)}
                                 </span>
 
-                                    <h2 className="SearchResults-results-item-title">
+                                    <h2 className="SearchResults-results-item-title is-visited">
                                         <a href={item.url}>{showTitle(item)}</a>
                                     </h2>
 
@@ -99,6 +136,9 @@ function SearchResults() {
                             ) : ''
                     }
                 </div>
+
+                {results?.additional_info ?
+                    <SearchResultsAdditionalInfo additionalInfo={results.additional_info}/> : ''}
             </div>
         </div>
     );

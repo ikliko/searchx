@@ -1,0 +1,10 @@
+.SearchResultsAdditionalInfo {
+    width: 23rem;
+}
+
+.SearchResultsAdditionalInfo-image {
+    width: 50%;
+    height: 9rem;
+    background-repeat: no-repeat;
+    background-position: center;
+}

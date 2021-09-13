@@ -66,3 +66,7 @@
 .SearchResults-see-also {
     border: 1px solid #5f6368;
 }
+
+a:visited {
+    color: #9004fc;
+}

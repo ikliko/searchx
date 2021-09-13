@@ -48,7 +48,7 @@ function savePageToStorage() {
 
     autocompletes = JSON.parse(autocompletes);
 
-    if(autocompletes.find(r => r === query)) {
+    if (autocompletes.find(r => r === query)) {
         return;
     }
 
@@ -59,11 +59,50 @@ function savePageToStorage() {
 function getOpenedAutocompletes() {
     let autocompletes = localStorage.getItem('autocompletes');
 
-    if(!autocompletes) {
+    if (!autocompletes) {
         return [];
     }
 
     return JSON.parse(autocompletes).map(r => decodeURI(r));
+}
+
+function saveOpenedResult(result) {
+    let autocompletes = localStorage.getItem('search_results');
+
+    if (!autocompletes) {
+        localStorage.setItem('search_results', JSON.stringify([result]));
+
+        return;
+    }
+
+    autocompletes = JSON.parse(autocompletes);
+
+    if (autocompletes.find(r => r === result)) {
+        return;
+    }
+
+    autocompletes.push(result);
+    localStorage.setItem('search_results', JSON.stringify(autocompletes));
+}
+
+function hasResult(result) {
+    let search_results = localStorage.getItem('search_results');
+
+    if (!search_results) {
+        localStorage.setItem('search_results', JSON.stringify([result]));
+
+        return;
+    }
+
+    search_results = JSON.parse(search_results);
+
+    for (const search_result of search_results) {
+        if (search_result === result) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function SearchResults() {
@@ -84,8 +123,6 @@ function SearchResults() {
         )
             .then(res => res.json())
             .then(data => {
-                console.log(111, data);
-
                 if (!data) {
                     setResults(null);
                     return;
@@ -98,8 +135,6 @@ function SearchResults() {
     const handleLogoClick = e => {
         window.location.href = `/`;
     };
-
-    // console.log(queryParam,autocompletesOpened.include(queryParam));
 
     return (
         <div className="SearchResults">
@@ -125,8 +160,15 @@ function SearchResults() {
                                     {showLink(item)}
                                 </span>
 
-                                    <h2 className="SearchResults-results-item-title is-visited">
-                                        <a href={item.url}>{showTitle(item)}</a>
+                                    <h2 className={
+                                        'SearchResults-results-item-title '
+                                        + (
+                                            hasResult(item.url) ? ' is-visited' : ''
+                                        )
+                                    }>
+                                        <a href={item.url}>
+                                            {showTitle(item)}
+                                        </a>
                                     </h2>
 
                                     <div className="SearchResults-results-item-description">

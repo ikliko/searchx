@@ -8,8 +8,6 @@ function SearchResultsAdditionalInfo(additionalInfo) {
 
     const info = additionalInfo.additionalInfo;
 
-    console.log(info);
-
     return (
         <div className="SearchResultsAdditionalInfo">
             <div className="SearchResultsAdditionalInfo-images-list">

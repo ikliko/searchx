@@ -191,7 +191,9 @@ function Search(oneRow = false) {
             {
                 !isOneRow ?
                     <>
-                        <button type="button" className="Search-search-button">SrchX Search</button>
+                        <button type="button"
+                                onClick={() => search()}
+                                className="Search-search-button">SrchX Search</button>
                         <button type="button" className="Search-lucky-button">I'm Feeling Lucky</button>
                     </>
                     : ''

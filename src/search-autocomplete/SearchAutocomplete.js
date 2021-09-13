@@ -20,8 +20,6 @@ function SearchAutocomplete(autocomplete) {
     const url = result => `http://localhost:3000/search/${result.full}`;
     const autocompletesOpened = getOpenedAutocompletes();
 
-    console.log(autocompletesOpened);
-
     return (
         <div className="SearchAutocomplete">
             <div className="SearchAutocomplete-results">

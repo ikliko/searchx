@@ -1,6 +1,7 @@
 import React from "react";
 import './SearchResultsAdditionalInfo.css'
 import imageIcon from '../assets/image.svg';
+import shareIcon from '../assets/share.svg';
 
 function SearchResultsAdditionalInfo(additionalInfo) {
     if (!additionalInfo) {
@@ -8,6 +9,8 @@ function SearchResultsAdditionalInfo(additionalInfo) {
     }
 
     const info = additionalInfo.additionalInfo;
+
+    console.log(info);
 
     return (
         <div className="SearchResultsAdditionalInfo">
@@ -33,6 +36,25 @@ function SearchResultsAdditionalInfo(additionalInfo) {
                     </a>
                 </div>
             </div>
+
+            <div className="SearchResultsAdditionalInfo-title-wrapper">
+                <div className="SearchResultsAdditionalInfo-title-description">
+                    <h2 className="SearchResultsAdditionalInfo-title">
+                        {info.title}
+                    </h2>
+
+                    <div className="SearchResultsAdditionalInfo-brief">
+                        {info.short_description}
+                    </div>
+                </div>
+
+                <div className="SearchResultsAdditionalInfo-share">
+                    <img src={shareIcon}
+                         className="SearchResultsAdditionalInfo-images-more-icon"
+                         alt="share icon"/>
+                </div>
+            </div>
+
         </div>
     );
 }

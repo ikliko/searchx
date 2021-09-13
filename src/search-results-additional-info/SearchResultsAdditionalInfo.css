@@ -1,5 +1,8 @@
 .SearchResultsAdditionalInfo {
     width: 23rem;
+    border: 1px solid #5f6368;
+    border-radius: 1rem;
+    overflow: hidden;
 }
 
 .SearchResultsAdditionalInfo-images-more {
@@ -41,4 +44,26 @@
     background-position: center;
     display: inline-block;
     background-size: cover;
+}
+
+.SearchResultsAdditionalInfo-title-wrapper {
+    padding: .75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #5f6368;
+    display: flex;
+    justify-content: space-between;
+}
+
+.SearchResultsAdditionalInfo-title-description {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.SearchResultsAdditionalInfo-title {
+    color: #e8eaed;
+    margin: 0;
+}
+.SearchResultsAdditionalInfo-brief {
+    color: #9aa0a6;
 }

@@ -17,7 +17,7 @@ function SearchAutocomplete(autocomplete) {
         return <div/>;
     }
 
-    const url = result => `https://api.searchx.waboratory.com/search/${result.full}`;
+    const url = result => `http://localhost:3000/search/${result.full}`;
     const autocompletesOpened = getOpenedAutocompletes();
 
     return (

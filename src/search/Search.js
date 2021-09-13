@@ -1,14 +1,20 @@
 import searchIcon from '../assets/search.svg';
+import searchPurpleIcon from '../assets/search-purple-icon.svg';
 import micIcon from '../assets/microphone.svg';
 import React, {useEffect, useRef, useState} from "react";
 import SearchAutocomplete from "../search-autocomplete/SearchAutocomplete";
 import './Search.css';
 import _ from "lodash"
 import {useParams} from "react-router-dom";
-import {BrowserRouter as Router,  Route, Switch} from "react-router-dom";
 
 
 function Search(oneRow = false) {
+    let isOneRow = false;
+
+    if (typeof oneRow === 'object' && Object.keys(oneRow).length) {
+        isOneRow = oneRow?.oneRow
+    }
+
     const [query, setQuery] = useState('');
     const [autocompleteResults, setAutocompleteResults] = useState('');
     const [showAutocomplete, setShowAutocomplete] = useState('');
@@ -52,9 +58,13 @@ function Search(oneRow = false) {
         setIsInputActive(false);
     };
 
+    const search = () => {
+        window.location.href = `/search/${query}`;
+    };
+
     const handleKeyDown = e => {
         if (e.key === 'Enter') {
-            window.location.href= `/search/${query}`;
+            search();
         }
     };
 
@@ -130,7 +140,11 @@ function Search(oneRow = false) {
                         {query ? "X" : ""}
                     </div>
 
-                    <div className="Search-input-icon-wrapper Search-push-to-talk">
+                    <div className={
+                        'Search-input-icon-wrapper Search-push-to-talk' + (
+                            isOneRow ? ' inline-search' : ''
+                        )
+                    }>
                         <img src={micIcon}
                              className="Search-input-icon"
                              alt="microphone-click-to-talk"/>
@@ -139,6 +153,16 @@ function Search(oneRow = false) {
                             Search by voice
                         </span>
                     </div>
+
+                    {
+                        isOneRow
+                            ? <button type="button"
+                                      onClick={search}
+                                      className="Search-search-inline-button">
+                                <img src={searchPurpleIcon} alt="search icon button"/>
+                            </button>
+                            : ''
+                    }
                 </div>
 
                 {
@@ -161,7 +185,7 @@ function Search(oneRow = false) {
             </div>
 
             {
-                !oneRow ?
+                !isOneRow ?
                     <>
                         <button type="button" className="Search-search-button">SrchX Search</button>
                         <button type="button" className="Search-lucky-button">I'm Feeling Lucky</button>

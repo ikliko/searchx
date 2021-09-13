@@ -10,10 +10,15 @@
 .SearchResults-logo {
     width: 9rem;
     margin: 1rem;
+    cursor: pointer;
 }
 
 .SearchResults .Search {
     width: auto;
+}
+
+.Search-results-list {
+    margin-left: 12rem;
 }
 
 .SearchResults-results-item {
@@ -23,7 +28,6 @@
     align-items: flex-start;
     max-width: 38rem;
     text-align: left;
-    margin-left: 12rem;
     margin-bottom: 2rem;
 }
 

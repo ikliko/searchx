@@ -50,10 +50,15 @@ function SearchResults() {
             });
     }, [queryParam]);
 
+    const handleLogoClick = e => {
+        window.location.href= `/`;
+    };
+
     return (
         <div className="SearchResults">
             <div className="SearchResults-search-wrapper">
                 <img src={logo}
+                     onClick={handleLogoClick}
                      className="SearchResults-logo"
                      alt="logo"/>
 
@@ -63,25 +68,27 @@ function SearchResults() {
             <hr/>
 
             <div className="SearchResults-results-wrapper">
-                {
-                    results?.results
-                        ? results.results.map((item, i) => <>
-                            <div key={i}
-                                className="SearchResults-results-item">
+                <div className="Search-results-list">
+                    {
+                        results?.results
+                            ? results.results.map((item, i) =>
+                                <div key={++i}
+                                     className="SearchResults-results-item">
                                 <span className="SearchResults-results-item-url">
                                     {item.url}
                                 </span>
 
-                                <h2 className="SearchResults-results-item-title">
-                                    <a href={item.url}>{showTitle(item)}</a>
-                                </h2>
+                                    <h2 className="SearchResults-results-item-title">
+                                        <a href={item.url}>{showTitle(item)}</a>
+                                    </h2>
 
-                                <div className="SearchResults-results-item-description">
-                                    {showSnippet(item)}
+                                    <div className="SearchResults-results-item-description">
+                                        {showSnippet(item)}
+                                    </div>
                                 </div>
-                            </div>
-                        </>) : ''
-                }
+                            ) : ''
+                    }
+                </div>
             </div>
         </div>
     );

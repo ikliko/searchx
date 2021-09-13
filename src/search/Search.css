@@ -89,6 +89,10 @@
     cursor: pointer;
 }
 
+.Search-push-to-talk.inline-search {
+    margin-right: 1rem;
+}
+
 .Search-push-to-talk:hover > .Search-push-to-talk-helper {
     display: block;
 }
@@ -104,6 +108,10 @@
     right: -14px;
     display: none;
     z-index: 1;
+}
+
+.Search-push-to-talk.inline-search .Search-push-to-talk-helper {
+    right: 30px;;
 }
 
 .Search-push-to-talk .Search-push-to-talk-helper:before {
@@ -124,6 +132,20 @@
     border-width: 0px 5px 5px 5px;
     top: -5px;
     left: 48%;
+}
+
+.Search-search-inline-button {
+    background: transparent;
+    height: 100%;
+    border: none;
+    padding: .5rem 0;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.Search-search-inline-button img {
+    height: 100%;
 }
 
 .Search-search-button,

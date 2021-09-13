@@ -17,11 +17,21 @@ function showSnippet(item) {
 function showTitle(item) {
     const title = item.title;
 
-    if(title.length > 70) {
-        return `${title.slice(0, 67)}...`
+    if(title.length > 63) {
+        return `${title.slice(0, 60)}...`
     }
 
     return title;
+}
+
+function showLink(item) {
+    const link = item.url;
+
+    if(link.length > 50) {
+        return `${link.slice(0, 47)}...`
+    }
+
+    return link;
 }
 
 function SearchResults() {
@@ -75,7 +85,7 @@ function SearchResults() {
                                 <div key={++i}
                                      className="SearchResults-results-item">
                                 <span className="SearchResults-results-item-url">
-                                    {item.url}
+                                    {showLink(item)}
                                 </span>
 
                                     <h2 className="SearchResults-results-item-title">

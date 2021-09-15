@@ -7,7 +7,6 @@ import './Search.css';
 import _ from "lodash"
 import {useParams} from "react-router-dom";
 
-
 function Search(oneRow = false) {
     let isOneRow = false;
 
